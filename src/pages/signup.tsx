@@ -1,8 +1,11 @@
 import { type ChangeEvent, useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { signUpAPI } from '../apis/auth';
 import { validEmail, validPassword } from '../utils/valid';
 
 function SignUp(): JSX.Element {
+  const navigate = useNavigate();
+
   const [signupInputs, setSignupInputs] = useState({
     email: '',
     password: '',
@@ -21,8 +24,12 @@ function SignUp(): JSX.Element {
   };
 
   const onSubmit = async (): Promise<void> => {
-    const data = await signUpAPI(email, password);
+    const { data, status } = await signUpAPI(email, password);
     console.log('data: ', data);
+    if (status === 201) {
+      alert('회원가입에 성공하셨습니다. 로그인 화면으로 이동합니다. ');
+      navigate('/signin');
+    }
   };
 
   return (
