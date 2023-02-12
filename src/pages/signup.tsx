@@ -1,31 +1,55 @@
-import { type ChangeEvent, useState } from 'react';
+import { type ChangeEvent, useState, useMemo } from 'react';
+import { validEmail, validPassword } from '../utils/valid';
 
 function SignUp(): JSX.Element {
-	const [signupInputs, setSignupInputs] = useState({
-		email: '',
-		password: '',
-	});
+  const [signupInputs, setSignupInputs] = useState({
+    email: '',
+    password: '',
+  });
 
-	const { email, password } = signupInputs;
+  const { email, password } = signupInputs;
 
-	const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
-		const { value, name } = e.target;
-		setSignupInputs({ ...signupInputs, [name]: value });
-	};
+  const isButtonDisable = useMemo(() => {
+    if (validEmail(email) && validPassword(password)) {
+      return false;
+    }
+    return true;
+  }, [email, password]);
 
-	const onSubmit = (): void => {
-		console.log(signupInputs);
-	};
+  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const { value, name } = e.target;
+    setSignupInputs({ ...signupInputs, [name]: value });
+  };
 
-	return (
-		<div>
-			<input data-testid="email-input" name="email" value={email} onChange={onChange} />
-			<input data-testid="password-input" name="password" value={password} onChange={onChange} />
+  const onSubmit = (): void => {
+    console.log(signupInputs);
+  };
 
-			<button type="submit" data-testid="signup-button" onClick={onSubmit}>
-				회원가입
-			</button>
-		</div>
-	);
+  return (
+    <div>
+      <input
+        data-testid="email-input"
+        name="email"
+        value={email}
+        onChange={onChange}
+      />
+      <input
+        data-testid="password-input"
+        name="password"
+        value={password}
+        onChange={onChange}
+      />
+
+      <button
+        type="submit"
+        data-testid="signup-button"
+        onClick={onSubmit}
+        disabled={isButtonDisable}
+      >
+        회원가입
+      </button>
+    </div>
+  );
 }
+
 export default SignUp;
