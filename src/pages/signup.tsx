@@ -1,4 +1,5 @@
 import { type ChangeEvent, useState, useMemo } from 'react';
+import { signUpAPI } from '../apis/auth';
 import { validEmail, validPassword } from '../utils/valid';
 
 function SignUp(): JSX.Element {
@@ -9,20 +10,19 @@ function SignUp(): JSX.Element {
 
   const { email, password } = signupInputs;
 
-  const isButtonDisable = useMemo(() => {
-    if (validEmail(email) && validPassword(password)) {
-      return false;
-    }
-    return true;
-  }, [email, password]);
+  const isButtonDisable = useMemo(
+    () => !(validEmail(email) && validPassword(password)),
+    [email, password],
+  );
 
   const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value, name } = e.target;
     setSignupInputs({ ...signupInputs, [name]: value });
   };
 
-  const onSubmit = (): void => {
-    console.log(signupInputs);
+  const onSubmit = async (): Promise<void> => {
+    const data = await signUpAPI(email, password);
+    console.log('data: ', data);
   };
 
   return (
