@@ -1,9 +1,9 @@
-function App() {
-  return (
-    <div className="App">
-      <header></header>
-    </div>
-  );
+function App(): JSX.Element {
+	return (
+		<div className="App">
+			<header />
+		</div>
+	);
 }
 
 export default App;
