@@ -15,11 +15,9 @@ function Todo(): JSX.Element {
     );
   };
 
-  const createTodo = async (newTodo: string): Promise<void> => {
-    await createTodoAPI(newTodo);
+  const reloadTodos = async (): Promise<void> => {
     await getTodos();
   };
-
   const getTodos = async (): Promise<void> => {
     const data = await getTodosAPI();
     setTodos(data);
@@ -31,7 +29,7 @@ function Todo(): JSX.Element {
 
   return (
     <div>
-      <NewTodoForm createTodo={createTodo} />
+      <NewTodoForm reloadTodos={reloadTodos} />
 
       {todos.map((todo) => (
         <TodoItem

@@ -1,10 +1,11 @@
 import { type ChangeEvent, useState } from 'react';
+import { createTodoAPI } from '../../apis/todo';
 
 interface NewTodoFormProps {
-  createTodo: (newTodo: string) => Promise<void>;
+  reloadTodos: () => Promise<void>;
 }
 
-function NewTodoForm({ createTodo }: NewTodoFormProps): JSX.Element {
+function NewTodoForm({ reloadTodos }: NewTodoFormProps): JSX.Element {
   const [input, setInput] = useState('');
 
   const onNewTodoInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -13,7 +14,9 @@ function NewTodoForm({ createTodo }: NewTodoFormProps): JSX.Element {
 
   const onNewTodoAddBtnClick = async (): Promise<void> => {
     if (input !== '') {
-      await createTodo(input);
+      await createTodoAPI(input);
+      await reloadTodos();
+
       setInput('');
     }
   };
