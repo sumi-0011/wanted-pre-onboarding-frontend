@@ -1,9 +1,4 @@
-export interface TodoItemType {
-  id: number;
-  todo: string;
-  isCompleted: boolean;
-  userId: number;
-}
+import { type TodoItemType } from '../../types/todo';
 
 interface TodoItemProps extends TodoItemType {
   handleCompletedClick: (id: number) => void;

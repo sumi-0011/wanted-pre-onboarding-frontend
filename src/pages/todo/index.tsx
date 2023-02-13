@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { createTodoAPI } from '../../apis/todo';
+import { type TodoItemType } from '../../types/todo';
 import NewTodoForm from './NewTodoForm';
-import TodoItem, { type TodoItemType } from './TodoItem';
+import TodoItem from './TodoItem';
 
 const DUMMY_TODO_LIST: TodoItemType[] = [
   {
@@ -28,8 +30,9 @@ function Todo(): JSX.Element {
     );
   };
 
-  const createTodo = (newTodo: string): void => {
-    console.log('newTodo: ', newTodo);
+  const createTodo = async (newTodo: string): Promise<void> => {
+    const data = await createTodoAPI(newTodo);
+    console.log('data: ', data);
   };
 
   return (
