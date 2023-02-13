@@ -1,5 +1,4 @@
-import { AxiosError } from 'axios';
-import api from '.';
+import { authAPI, handleError } from '.';
 
 const SIGN_UP_PATH = '/auth/signup';
 const SIGN_IN_PATH = '/auth/signin';
@@ -16,7 +15,7 @@ export const signUpAPI = async (
   password: string,
 ): Promise<AuthReturnType> => {
   try {
-    const response = await api.post(
+    const response = await authAPI.post(
       SIGN_UP_PATH,
       { email, password },
       { headers: { 'Content-Type': 'application/json' } },
@@ -24,13 +23,7 @@ export const signUpAPI = async (
 
     return { data: response.data, status: response.status };
   } catch (error: unknown) {
-    if (error instanceof AxiosError) {
-      const { response } = error;
-
-      if (response != null) {
-        alert(response.data.message);
-      }
-    }
+    handleError(error);
     throw error;
   }
 };
@@ -40,7 +33,7 @@ export const signInAPI = async (
   password: string,
 ): Promise<AuthReturnType> => {
   try {
-    const response = await api.post(
+    const response = await authAPI.post(
       SIGN_IN_PATH,
       { email, password },
       { headers: { 'Content-Type': 'application/json' } },
@@ -48,13 +41,7 @@ export const signInAPI = async (
 
     return { data: response.data, status: response.status };
   } catch (error: unknown) {
-    if (error instanceof AxiosError) {
-      const { response } = error;
-
-      if (response != null) {
-        alert(response.data.message);
-      }
-    }
+    handleError(error);
     throw error;
   }
 };
