@@ -6,24 +6,23 @@ import TodoItemModifyMode from './TodoItemModifyMode';
 interface TodoItemProps extends TodoItemType {
   reloadTodos: () => Promise<void>;
 }
+
 function TodoItem({
   id,
   todo,
   isCompleted,
-  userId,
   reloadTodos,
 }: TodoItemProps): JSX.Element {
   const [isModifyMode, setIsModifyMode] = useState(false);
-  const updateTodo = async (
-    newTodo: string,
-    newIsCompleted: boolean,
-  ): Promise<void> => {
-    await updateTodoAPI(id, newTodo, newIsCompleted);
+
+  const handleUpdateTodo = async (newTodo: string): Promise<void> => {
+    await updateTodoAPI(id, newTodo, isCompleted);
     await reloadTodos();
   };
 
-  const onCheckClick = (): void => {
-    void updateTodo(todo, !isCompleted);
+  const onCheckClick = async (): Promise<void> => {
+    await updateTodoAPI(id, todo, !isCompleted);
+    await reloadTodos();
   };
 
   const onModifyButtonClick = (): void => {
@@ -35,7 +34,13 @@ function TodoItem({
   };
 
   if (isModifyMode) {
-    return <TodoItemModifyMode cancelModify={onModifyButtonClick} />;
+    return (
+      <TodoItemModifyMode
+        initTodo={todo}
+        cancelModify={onModifyButtonClick}
+        updateTodo={handleUpdateTodo}
+      />
+    );
   }
 
   return (
@@ -43,7 +48,7 @@ function TodoItem({
       <label>
         <input type="checkbox" checked={isCompleted} onChange={onCheckClick} />
         <span>{todo}</span>
-      </label>{' '}
+      </label>
       <button data-testid="modify-button" onClick={onModifyButtonClick}>
         수정
       </button>
