@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { updateTodoAPI } from '../../apis/todo';
+import { deleteTodo, updateTodoAPI } from '../../apis/todo';
 import { type TodoItemType } from '../../types/todo';
 import TodoItemModifyMode from './TodoItemModifyMode';
 
@@ -29,8 +29,11 @@ function TodoItem({
     setIsModifyMode(!isModifyMode);
   };
 
-  const onDeleteButtonClick = (): void => {
-    console.log('onDeleteButtonClick: ');
+  const onDeleteButtonClick = async (): Promise<void> => {
+    if (window.confirm('해당 TODO를 삭제하시겠습니까?')) {
+      await deleteTodo(id);
+      await reloadTodos();
+    }
   };
 
   if (isModifyMode) {

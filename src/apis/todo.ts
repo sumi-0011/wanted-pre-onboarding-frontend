@@ -38,3 +38,13 @@ export const updateTodoAPI = async (
     throw error;
   }
 };
+
+export const deleteTodo = async (id: number): Promise<boolean> => {
+  try {
+    await api.delete(`${TODO_PATH}/${id}`);
+    return true;
+  } catch (error: unknown) {
+    handleError(error);
+    return false;
+  }
+};
