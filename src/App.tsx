@@ -1,22 +1,18 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
 import SignIn from './pages/signin';
 import SignUp from './pages/signup';
+import Todo from './pages/todo';
 
 function App(): JSX.Element {
   return (
     <div className="App">
       <BrowserRouter>
-        <header>
-          <Link to="/signup">
-            <li>회원가입</li>
-          </Link>
-          <Link to="/signin">
-            <li>로그인</li>
-          </Link>
-        </header>
+        <Header />
         <Routes>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/todo" element={<Todo />} />
         </Routes>
       </BrowserRouter>
     </div>
