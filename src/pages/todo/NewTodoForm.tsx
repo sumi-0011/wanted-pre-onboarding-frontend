@@ -1,3 +1,4 @@
+import { Button, Flex, Input } from '@chakra-ui/react';
 import { type ChangeEvent, useState } from 'react';
 import { createTodoAPI } from '../../apis/todo';
 
@@ -20,17 +21,18 @@ function NewTodoForm({ reloadTodos }: NewTodoFormProps): JSX.Element {
       setInput('');
     }
   };
+
   return (
-    <div>
-      <input
+    <Flex gap={2}>
+      <Input
         data-testid="new-todo-input"
         value={input}
         onChange={onNewTodoInputChange}
       />
-      <button data-testid="new-todo-add-button" onClick={onNewTodoAddBtnClick}>
+      <Button data-testid="new-todo-add-button" onClick={onNewTodoAddBtnClick}>
         추가
-      </button>
-    </div>
+      </Button>
+    </Flex>
   );
 }
 export default NewTodoForm;

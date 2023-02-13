@@ -1,3 +1,4 @@
+import { Button, Input, ListItem } from '@chakra-ui/react';
 import { type ChangeEvent, useState } from 'react';
 
 interface TodoItemModifyModeProps {
@@ -32,20 +33,20 @@ function TodoItemModifyMode({
   };
 
   return (
-    <li>
-      <input
+    <>
+      <Input
         data-testid="modify-input"
         type="text"
         value={modifyTodo}
         onChange={onModifyTodoChange}
       />
-      <button data-testid="submit-button" onClick={onSubmit}>
+      <Button data-testid="submit-button" onClick={onSubmit}>
         제출
-      </button>
-      <button data-testid="cancel-button" onClick={onCancel}>
+      </Button>
+      <Button data-testid="cancel-button" onClick={onCancel}>
         취소
-      </button>
-    </li>
+      </Button>
+    </>
   );
 }
 

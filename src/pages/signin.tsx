@@ -1,4 +1,5 @@
 import { type ChangeEvent, useMemo, useState } from 'react';
+import { Input, Button, HStack, VStack, Heading } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { signInAPI } from '../apis/auth';
 import { validEmail, validPassword } from '../utils/valid';
@@ -34,28 +35,34 @@ function SignIn(): JSX.Element {
   };
 
   return (
-    <div>
-      <input
+    <VStack gap="3">
+      <Heading size="md">로그인</Heading>
+
+      <Input
         name="email"
         value={email}
         data-testid="email-input"
         onChange={onChange}
+        placeholder="이메일을 입력해주세요"
       />
-      <input
+      <Input
         name="password"
         value={password}
         data-testid="password-input"
         onChange={onChange}
+        placeholder="비밀번호를 입력해주세요"
       />
-      <button
+      <Button
+        colorScheme="teal"
+        w="full"
         type="submit"
         data-testid="signin-button"
         onClick={onSubmit}
-        disabled={isButtonDisable}
+        isDisabled={isButtonDisable}
       >
         로그인
-      </button>
-    </div>
+      </Button>
+    </VStack>
   );
 }
 export default SignIn;

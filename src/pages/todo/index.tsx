@@ -1,3 +1,4 @@
+import { Box, UnorderedList } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { getTodosAPI } from '../../apis/todo';
 import { type TodoItemType } from '../../types/todo';
@@ -21,18 +22,15 @@ function Todo(): JSX.Element {
   }, []);
 
   return (
-    <div>
+    <Box py={5}>
       <NewTodoForm reloadTodos={reloadTodos} />
 
-      {todos.map((todo) => (
-        <TodoItem
-          key={todo.id}
-          {...todo}
-          // handleCompletedClick={handleCompletedClick}
-          reloadTodos={reloadTodos}
-        />
-      ))}
-    </div>
+      <UnorderedList pt={5} listStyleType="none">
+        {todos.map((todo) => (
+          <TodoItem key={todo.id} {...todo} reloadTodos={reloadTodos} />
+        ))}
+      </UnorderedList>
+    </Box>
   );
 }
 
