@@ -1,3 +1,4 @@
+import { Button, Checkbox, Flex, ListItem, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { deleteTodo, updateTodoAPI } from '../../apis/todo';
 import { type TodoItemType } from '../../types/todo';
@@ -39,29 +40,36 @@ function TodoItem({
     }
   };
 
-  if (isModifyMode) {
-    return (
-      <TodoItemModifyMode
-        initTodo={todo}
-        cancelModify={onModifyButtonClick}
-        updateTodo={handleUpdateTodo}
-      />
-    );
-  }
-
   return (
-    <li>
-      <label>
-        <input type="checkbox" checked={isCompleted} onChange={onCheckClick} />
-        <span>{todo}</span>
-      </label>
-      <button data-testid="modify-button" onClick={onModifyButtonClick}>
-        수정
-      </button>
-      <button data-testid="delete-button" onClick={onDeleteButtonClick}>
-        삭제
-      </button>
-    </li>
+    <ListItem py={1}>
+      <Flex gap={2}>
+        {isModifyMode ? (
+          <TodoItemModifyMode
+            initTodo={todo}
+            cancelModify={onModifyButtonClick}
+            updateTodo={handleUpdateTodo}
+          />
+        ) : (
+          <>
+            <label>
+              <Flex minW="510px" gap={2} lineHeight="40px">
+                <Checkbox
+                  defaultChecked={isCompleted}
+                  onChange={onCheckClick}
+                />
+                <Text>{todo}</Text>
+              </Flex>
+            </label>
+            <Button data-testid="modify-button" onClick={onModifyButtonClick}>
+              수정
+            </Button>
+            <Button data-testid="delete-button" onClick={onDeleteButtonClick}>
+              삭제
+            </Button>
+          </>
+        )}
+      </Flex>
+    </ListItem>
   );
 }
 export default TodoItem;
