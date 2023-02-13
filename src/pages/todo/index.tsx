@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import NewTodoForm from './NewTodoForm';
 import TodoItem, { type TodoItemType } from './TodoItem';
 
 const DUMMY_TODO_LIST: TodoItemType[] = [
@@ -27,8 +28,14 @@ function Todo(): JSX.Element {
     );
   };
 
+  const createTodo = (newTodo: string): void => {
+    console.log('newTodo: ', newTodo);
+  };
+
   return (
     <div>
+      <NewTodoForm createTodo={createTodo} />
+
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}

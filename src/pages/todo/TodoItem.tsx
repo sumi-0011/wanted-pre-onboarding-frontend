@@ -22,7 +22,7 @@ function TodoItem({
   return (
     <li>
       <label>
-        <input type="checkbox" checked={isCompleted} onClick={onCheckClick} />
+        <input type="checkbox" checked={isCompleted} onChange={onCheckClick} />
         <span>{todo}</span>
       </label>
     </li>
