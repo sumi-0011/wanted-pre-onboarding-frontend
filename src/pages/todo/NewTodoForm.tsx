@@ -1,7 +1,7 @@
 import { type ChangeEvent, useState } from 'react';
 
 interface NewTodoFormProps {
-  createTodo: (newTodo: string) => void;
+  createTodo: (newTodo: string) => Promise<void>;
 }
 
 function NewTodoForm({ createTodo }: NewTodoFormProps): JSX.Element {
@@ -11,8 +11,11 @@ function NewTodoForm({ createTodo }: NewTodoFormProps): JSX.Element {
     setInput(e.target.value);
   };
 
-  const onNewTodoAddBtnClick = (): void => {
-    input !== '' && createTodo(input);
+  const onNewTodoAddBtnClick = async (): Promise<void> => {
+    if (input !== '') {
+      await createTodo(input);
+      setInput('');
+    }
   };
   return (
     <div>

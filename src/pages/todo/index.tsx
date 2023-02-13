@@ -1,26 +1,11 @@
-import { useState } from 'react';
-import { createTodoAPI } from '../../apis/todo';
+import { useEffect, useState } from 'react';
+import { createTodoAPI, getTodosAPI } from '../../apis/todo';
 import { type TodoItemType } from '../../types/todo';
 import NewTodoForm from './NewTodoForm';
 import TodoItem from './TodoItem';
 
-const DUMMY_TODO_LIST: TodoItemType[] = [
-  {
-    id: 1,
-    todo: 'todo1',
-    isCompleted: false,
-    userId: 1,
-  },
-  {
-    id: 2,
-    todo: 'todo1',
-    isCompleted: false,
-    userId: 1,
-  },
-];
-
 function Todo(): JSX.Element {
-  const [todos, setTodos] = useState(DUMMY_TODO_LIST);
+  const [todos, setTodos] = useState<TodoItemType[]>([]);
 
   const handleCompletedClick = (id: number): void => {
     setTodos(
@@ -31,9 +16,18 @@ function Todo(): JSX.Element {
   };
 
   const createTodo = async (newTodo: string): Promise<void> => {
-    const data = await createTodoAPI(newTodo);
-    console.log('data: ', data);
+    await createTodoAPI(newTodo);
+    await getTodos();
   };
+
+  const getTodos = async (): Promise<void> => {
+    const data = await getTodosAPI();
+    setTodos(data);
+  };
+
+  useEffect(() => {
+    void getTodos();
+  }, []);
 
   return (
     <div>
