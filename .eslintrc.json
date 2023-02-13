@@ -9,8 +9,6 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    "airbnb",
-    "airbnb-typescript",
     "prettier"
   ],
 
@@ -25,5 +23,10 @@
     "project": "./tsconfig.json"
   },
   "plugins": ["react"],
-  "rules": {}
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "import/prefer-default-export": "off",
+    "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/naming-convention": "off"
+  }
 }
