@@ -1,20 +1,8 @@
-import { type AxiosResponse, type AxiosHeaders } from 'axios';
+import { AxiosError } from 'axios';
 import api from '.';
 
-class CustomError extends Error {
-  response?: {
-    config: unknown;
-    data: {
-      error: string;
-      statusCode: number;
-      message: string;
-    };
-    headers: AxiosHeaders;
-    request: XMLHttpRequest;
-    status: number;
-    statusText: string;
-  };
-}
+const SIGN_UP_PATH = '/auth/signup';
+const SIGN_IN_PATH = '/auth/signin';
 
 interface AuthReturnType {
   data: {
@@ -22,8 +10,6 @@ interface AuthReturnType {
   };
   status: number;
 }
-const SIGN_UP_PATH = '/auth/signup';
-const SIGN_IN_PATH = '/auth/signin';
 
 export const signUpAPI = async (
   email: string,
@@ -38,11 +24,13 @@ export const signUpAPI = async (
 
     return { data: response.data, status: response.status };
   } catch (error: unknown) {
-    const { response } = error as CustomError;
-    if (response != null) {
-      alert(response.data.message);
-    }
+    if (error instanceof AxiosError) {
+      const { response } = error;
 
+      if (response != null) {
+        alert(response.data.message);
+      }
+    }
     throw error;
   }
 };
@@ -60,11 +48,13 @@ export const signInAPI = async (
 
     return { data: response.data, status: response.status };
   } catch (error: unknown) {
-    const { response } = error as CustomError;
-    if (response != null) {
-      alert(response.data.message);
-    }
+    if (error instanceof AxiosError) {
+      const { response } = error;
 
+      if (response != null) {
+        alert(response.data.message);
+      }
+    }
     throw error;
   }
 };
