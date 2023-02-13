@@ -24,6 +24,7 @@ function SignIn(): JSX.Element {
     const { data, status } = await signInAPI(email, password);
     if (status === 200) {
       const { access_token } = data;
+      localStorage.setItem('access_token', access_token);
     }
   };
 
