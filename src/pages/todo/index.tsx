@@ -22,7 +22,7 @@ function Todo(): JSX.Element {
   }, []);
 
   return (
-    <Box py={5}>
+    <Box>
       <NewTodoForm reloadTodos={reloadTodos} />
 
       <UnorderedList pt={5} listStyleType="none">
