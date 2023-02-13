@@ -36,9 +36,10 @@ function SignIn(): JSX.Element {
 
   return (
     <VStack gap="3">
-      <Heading size="md">로그인</Heading>
+      <Heading size="md">ç로그인</Heading>
 
       <Input
+        type="email"
         name="email"
         value={email}
         data-testid="email-input"
@@ -46,6 +47,7 @@ function SignIn(): JSX.Element {
         placeholder="이메일을 입력해주세요"
       />
       <Input
+        type="password"
         name="password"
         value={password}
         data-testid="password-input"
