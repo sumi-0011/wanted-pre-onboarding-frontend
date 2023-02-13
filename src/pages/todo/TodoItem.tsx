@@ -6,13 +6,18 @@ export interface TodoItemType {
 }
 
 interface TodoItemProps extends TodoItemType {
+  handleCompletedClick: (id: number) => void;
 }
 function TodoItem({
   id,
   todo,
   isCompleted,
   userId,
+  handleCompletedClick,
 }: TodoItemProps): JSX.Element {
+  const onCheckClick = (): void => {
+    handleCompletedClick(id);
+  };
 
   return (
     <li>
