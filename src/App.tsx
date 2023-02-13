@@ -10,6 +10,9 @@ function App(): JSX.Element {
           <Link to="/signup">
             <li>회원가입</li>
           </Link>
+          <Link to="/signin">
+            <li>로그인</li>
+          </Link>
         </header>
         <Routes>
           <Route path="/signup" element={<SignUp />} />
