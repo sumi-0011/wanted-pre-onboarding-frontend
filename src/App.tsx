@@ -9,6 +9,7 @@ import Header from './components/Header';
 import SignIn from './pages/signin';
 import SignUp from './pages/signup';
 import Todo from './pages/todo';
+import Home from './pages/Home';
 
 const tealTheme = defineStyleConfig({
   defaultProps: {
@@ -31,6 +32,7 @@ function App(): JSX.Element {
           <Header />
           <Box px={5} width="700px">
             <Routes>
+              <Route path="/" element={<Home />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/signin" element={<SignIn />} />
               <Route path="/todo" element={<Todo />} />
