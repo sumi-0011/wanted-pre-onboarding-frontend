@@ -31,8 +31,11 @@ function TodoItem({
 
   const onDeleteButtonClick = async (): Promise<void> => {
     if (window.confirm('해당 TODO를 삭제하시겠습니까?')) {
-      await deleteTodo(id);
-      await reloadTodos();
+      const flag = await deleteTodo(id);
+      if (flag) {
+        alert('TODO가 삭제되었습니다. ');
+        await reloadTodos();
+      }
     }
   };
 

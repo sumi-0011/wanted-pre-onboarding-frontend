@@ -1,5 +1,9 @@
 import axios, { AxiosError } from 'axios';
 
+export const authAPI = axios.create({
+  baseURL: 'https://pre-onboarding-selection-task.shop/',
+});
+
 export const api = axios.create({
   baseURL: 'https://pre-onboarding-selection-task.shop/',
 });
@@ -17,14 +21,9 @@ api.interceptors.request.use(
     return config;
   },
   async function (error) {
-    console.log(error);
     return await Promise.reject(error);
   },
 );
-
-export const authAPI = axios.create({
-  baseURL: 'https://pre-onboarding-selection-task.shop/',
-});
 
 export const handleError = (error: unknown): void => {
   if (error instanceof AxiosError) {

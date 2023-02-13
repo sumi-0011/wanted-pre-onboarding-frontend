@@ -41,8 +41,8 @@ export const updateTodoAPI = async (
 
 export const deleteTodo = async (id: number): Promise<boolean> => {
   try {
-    await api.delete(`${TODO_PATH}/${id}`);
-    return true;
+    const res = await api.delete(`${TODO_PATH}/${id}`);
+    return res.status === 204;
   } catch (error: unknown) {
     handleError(error);
     return false;
