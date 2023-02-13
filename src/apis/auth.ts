@@ -1,4 +1,4 @@
-import { authAPI, handleError } from '.';
+import { authAPI } from '.';
 
 const SIGN_UP_PATH = '/auth/signup';
 const SIGN_IN_PATH = '/auth/signin';
@@ -14,34 +14,24 @@ export const signUpAPI = async (
   email: string,
   password: string,
 ): Promise<AuthReturnType> => {
-  try {
-    const response = await authAPI.post(
-      SIGN_UP_PATH,
-      { email, password },
-      { headers: { 'Content-Type': 'application/json' } },
-    );
+  const response = await authAPI.post(
+    SIGN_UP_PATH,
+    { email, password },
+    { headers: { 'Content-Type': 'application/json' } },
+  );
 
-    return { data: response.data, status: response.status };
-  } catch (error: unknown) {
-    handleError(error);
-    throw error;
-  }
+  return { data: response.data, status: response.status };
 };
 
 export const signInAPI = async (
   email: string,
   password: string,
 ): Promise<AuthReturnType> => {
-  try {
-    const response = await authAPI.post(
-      SIGN_IN_PATH,
-      { email, password },
-      { headers: { 'Content-Type': 'application/json' } },
-    );
+  const response = await authAPI.post(
+    SIGN_IN_PATH,
+    { email, password },
+    { headers: { 'Content-Type': 'application/json' } },
+  );
 
-    return { data: response.data, status: response.status };
-  } catch (error: unknown) {
-    handleError(error);
-    throw error;
-  }
+  return { data: response.data, status: response.status };
 };

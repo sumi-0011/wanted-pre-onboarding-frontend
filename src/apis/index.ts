@@ -8,6 +8,22 @@ export const api = axios.create({
   baseURL: 'https://pre-onboarding-selection-task.shop/',
 });
 
+authAPI.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  async function (error: unknown) {
+    if (error instanceof AxiosError) {
+      const { response } = error;
+
+      if (response != null) {
+        alert(response.data.message);
+      }
+    }
+    return await Promise.reject(error);
+  },
+);
+
 api.interceptors.request.use(
   function (config) {
     const access_token = localStorage.getItem('access_token');
@@ -25,12 +41,27 @@ api.interceptors.request.use(
   },
 );
 
-export const handleError = (error: unknown): void => {
-  if (error instanceof AxiosError) {
-    const { response } = error;
+api.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  async function (error: unknown) {
+    if (error instanceof AxiosError) {
+      const { response } = error;
 
-    if (response != null) {
-      alert(response.data.message);
+      if (response != null) {
+        alert(response.data.message);
+        switch (response.status) {
+          case 401:
+            alert(response.statusText);
+            // TODO : signin page spa redirect
+            window.location.href = '/signin';
+            break;
+          default:
+            return await Promise.reject(error);
+        }
+      }
     }
-  }
-};
+    return await Promise.reject(error);
+  },
+);

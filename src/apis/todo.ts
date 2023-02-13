@@ -1,27 +1,17 @@
-import { api, handleError } from '.';
+import { api } from '.';
 import { type TodoItemType } from '../types/todo';
 
 const TODO_PATH = '/todos';
 
 export const createTodoAPI = async (todo: string): Promise<TodoItemType> => {
-  try {
-    const response = await api.post(TODO_PATH, { todo });
+  const response = await api.post(TODO_PATH, { todo });
 
-    return response.data;
-  } catch (error: unknown) {
-    handleError(error);
-    throw error;
-  }
+  return response.data;
 };
 
 export const getTodosAPI = async (): Promise<TodoItemType[]> => {
-  try {
-    const response = await api.get(TODO_PATH);
-    return response.data;
-  } catch (error: unknown) {
-    handleError(error);
-    throw error;
-  }
+  const response = await api.get(TODO_PATH);
+  return response.data;
 };
 
 export const updateTodoAPI = async (
@@ -29,22 +19,12 @@ export const updateTodoAPI = async (
   todo: string,
   isCompleted: boolean,
 ): Promise<TodoItemType> => {
-  try {
-    const response = await api.put(`${TODO_PATH}/${id}`, { todo, isCompleted });
+  const response = await api.put(`${TODO_PATH}/${id}`, { todo, isCompleted });
 
-    return response.data;
-  } catch (error: unknown) {
-    handleError(error);
-    throw error;
-  }
+  return response.data;
 };
 
 export const deleteTodo = async (id: number): Promise<boolean> => {
-  try {
-    const res = await api.delete(`${TODO_PATH}/${id}`);
-    return res.status === 204;
-  } catch (error: unknown) {
-    handleError(error);
-    return false;
-  }
+  const res = await api.delete(`${TODO_PATH}/${id}`);
+  return res.status === 204;
 };
