@@ -1,17 +1,26 @@
+import { updateTodoAPI } from '../../apis/todo';
 import { type TodoItemType } from '../../types/todo';
 
 interface TodoItemProps extends TodoItemType {
-  handleCompletedClick: (id: number) => void;
+  reloadTodos: () => Promise<void>;
 }
 function TodoItem({
   id,
   todo,
   isCompleted,
   userId,
-  handleCompletedClick,
+  reloadTodos,
 }: TodoItemProps): JSX.Element {
+  const updateTodo = async (
+    newTodo: string,
+    newIsCompleted: boolean,
+  ): Promise<void> => {
+    await updateTodoAPI(id, newTodo, newIsCompleted);
+    await reloadTodos();
+  };
+
   const onCheckClick = (): void => {
-    handleCompletedClick(id);
+    void updateTodo(todo, !isCompleted);
   };
 
   return (

@@ -23,3 +23,18 @@ export const getTodosAPI = async (): Promise<TodoItemType[]> => {
     throw error;
   }
 };
+
+export const updateTodoAPI = async (
+  id: number,
+  todo: string,
+  isCompleted: boolean,
+): Promise<TodoItemType> => {
+  try {
+    const response = await api.put(`${TODO_PATH}/${id}`, { todo, isCompleted });
+
+    return response.data;
+  } catch (error: unknown) {
+    handleError(error);
+    throw error;
+  }
+};
