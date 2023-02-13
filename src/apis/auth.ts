@@ -16,12 +16,19 @@ class CustomError extends Error {
   };
 }
 
+interface AuthReturnType {
+  data: {
+    access_token: string;
+  };
+  status: number;
+}
 const SIGN_UP_PATH = '/auth/signup';
+const SIGN_IN_PATH = '/auth/signin';
 
 export const signUpAPI = async (
   email: string,
   password: string,
-): Promise<AxiosResponse> => {
+): Promise<AuthReturnType> => {
   try {
     const response = await api.post(
       SIGN_UP_PATH,
@@ -29,7 +36,7 @@ export const signUpAPI = async (
       { headers: { 'Content-Type': 'application/json' } },
     );
 
-    return response;
+    return { data: response.data, status: response.status };
   } catch (error: unknown) {
     const { response } = error as CustomError;
     if (response != null) {
@@ -40,4 +47,24 @@ export const signUpAPI = async (
   }
 };
 
-export default signUpAPI;
+export const signInAPI = async (
+  email: string,
+  password: string,
+): Promise<AuthReturnType> => {
+  try {
+    const response = await api.post(
+      SIGN_IN_PATH,
+      { email, password },
+      { headers: { 'Content-Type': 'application/json' } },
+    );
+
+    return { data: response.data, status: response.status };
+  } catch (error: unknown) {
+    const { response } = error as CustomError;
+    if (response != null) {
+      alert(response.data.message);
+    }
+
+    throw error;
+  }
+};

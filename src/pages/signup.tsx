@@ -27,7 +27,7 @@ function SignUp(): JSX.Element {
     const { data, status } = await signUpAPI(email, password);
     console.log('data: ', data);
     if (status === 201) {
-      alert('회원가입에 성공하셨습니다. 로그인 화면으로 이동합니다. ');
+      alert('회원가입에 성공하셨습니다. 로그인 화면으로 이동합니다.');
       navigate('/signin');
     }
   };

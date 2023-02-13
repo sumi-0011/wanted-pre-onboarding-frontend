@@ -1,4 +1,5 @@
 import { type ChangeEvent, useMemo, useState } from 'react';
+import { signInAPI } from '../apis/auth';
 import { validEmail, validPassword } from '../utils/valid';
 
 function SignIn(): JSX.Element {
@@ -20,6 +21,10 @@ function SignIn(): JSX.Element {
   };
 
   const onSubmit = async (): Promise<void> => {
+    const { data, status } = await signInAPI(email, password);
+    if (status === 200) {
+      const { access_token } = data;
+    }
   };
 
   return (
