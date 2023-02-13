@@ -1,8 +1,11 @@
 import { type ChangeEvent, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { signInAPI } from '../apis/auth';
 import { validEmail, validPassword } from '../utils/valid';
 
 function SignIn(): JSX.Element {
+  const navigate = useNavigate();
+
   const [signInInputs, setSignInInputs] = useState({
     email: '',
     password: '',
@@ -25,6 +28,8 @@ function SignIn(): JSX.Element {
     if (status === 200) {
       const { access_token } = data;
       localStorage.setItem('access_token', access_token);
+      alert('로그인 성공');
+      navigate('/todo');
     }
   };
 
